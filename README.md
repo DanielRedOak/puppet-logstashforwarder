@@ -40,9 +40,9 @@ To configure file inputs:
         fields   => { 'type' : 'syslog' }, 
     }
 
-Fields can also be a simple array using a "key, value, key, value" form to prevent the order from getting randomized.  Sub-arrays for values are not supported as of yet.
+Fields can also be a simple array using a "key, value, key, value" form to prevent the order from getting randomized.  Sub-arrays for values are not supported as of yet:
 
-lumberjack::file { 'localhost-syslog':
+    lumberjack::file { 'localhost-syslog':
         paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
         fields   => [ 'type', 'syslog', 'tags', 'rhel' ],
     }
