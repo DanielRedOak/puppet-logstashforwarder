@@ -14,11 +14,11 @@ Installation, make sure service is running and will be started at boot time:
 
      class { 'lumberjack': 
        cpuprofile       => '/path/to/write/cpu/profile/to/file',
-       idle_flush_time  => '5',
+       idle_flush_time  => '5s',
        log_to_syslog    => false,
        spool_size       => '1024',
        servers          => ['listof.hosts:12345', '127.0.0.1:9987'],
-       ssl_ca           => '/path/to/ssl/root/certificate',
+       ssl_ca_path      => '/path/to/ssl/root/certificate',
      }
 
 Removal/decommissioning:
