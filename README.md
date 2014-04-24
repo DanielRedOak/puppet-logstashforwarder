@@ -40,6 +40,14 @@ To configure file inputs:
         fields   => { 'type' : 'syslog' }, 
     }
 
+Fields can also be a simple array using a "key, value, key, value" form to prevent the order from getting randomized.  Sub-arrays for values are not supported as of yet:
+
+    lumberjack::file { 'localhost-syslog':
+        paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
+        fields   => [ 'type', 'syslog', 'tags', 'rhel' ],
+    }
+
+
 ## Parameters
 
 Default parameters have been set in the params.pp class file.  Options include config file and directory, package name, install dir (used by the service(s), amoung others.
