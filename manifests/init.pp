@@ -130,6 +130,7 @@ class lumberjack(
   $idle_flush_time  = '5s',
   $spool_size       = 1024,
   $log_to_syslog    = false,
+  $package          = undef,
 ) inherits lumberjack::params {
 
   #### Validate parameters
