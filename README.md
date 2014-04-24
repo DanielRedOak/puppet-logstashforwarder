@@ -39,6 +39,15 @@ To configure file inputs:
         paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
         fields   => { 'type' : 'syslog' }, 
     }
+    
+    Fields can also be a simple array using a "key, value, key, value" form to prevent the order from getting randomized.  Sub-arrays for values are not supported as of yet:
+
+    logstashforwarder::file { 'localhost-syslog':
+        paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
+        fields   => [ 'type', 'syslog', 'tags', 'rhel' ],
+}
+ 
+ 
 
 ## Parameters
 
