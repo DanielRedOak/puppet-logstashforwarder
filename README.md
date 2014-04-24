@@ -1,10 +1,10 @@
-# puppet-lumberjack
+# puppet-logstash-forwarder
 
-A puppet module for managing and configuring lumberjack
+A puppet module for managing and configuring logstash-forwarder
 
-https://github.com/jordansissel/lumberjack/
+https://github.com/jordansissel/logstash-forwarder/
 
-This module is based upon https://github.com/electrical/puppet-lumberjack and https://github.com/MixMuffins/puppet-lumberjack
+This module is based upon https://github.com/electrical/puppet-logstash-forwarder and https://github.com/MixMuffins/puppet-logstash-forwarder
 
 This updated module is in the beta stage and although it is tested, not all scenarios may be covered.
 
@@ -12,7 +12,7 @@ This updated module is in the beta stage and although it is tested, not all scen
 
 Installation, make sure service is running and will be started at boot time:
 
-     class { 'lumberjack': 
+     class { 'logstash-forwarder': 
        cpuprofile       => '/path/to/write/cpu/profile/to/file',
        idle_flush_time  => '5',
        log_to_syslog    => false,
@@ -23,19 +23,19 @@ Installation, make sure service is running and will be started at boot time:
 
 Removal/decommissioning:
 
-     class { 'lumberjack':
+     class { 'logstash-forwarder':
        ensure => 'absent',
      }
 
 Install everything but disable service(s) afterwards:
 
-     class { 'lumberjack':
+     class { 'logstash-forwarder':
        status => 'disabled',
      }
 
 To configure file inputs:
 
-    lumberjack::file { 'localhost-syslog':
+    logstash-forwarder::file { 'localhost-syslog':
         paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
         fields   => { 'type' : 'syslog' }, 
     }

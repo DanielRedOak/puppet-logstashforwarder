@@ -1,4 +1,4 @@
-define lumberjack::file (
+define logstash-forwarder::file (
     $paths,
     $fields,
 ){
@@ -15,9 +15,9 @@ define lumberjack::file (
         validate_hash($fields)
     }
  
-    if ($lumberjack::ensure == 'present' ) { 
+    if ($logstash-forwarder::ensure == 'present' ) { 
         concat::fragment{"${name}":
-            target  => "${lumberjack::configdir}/${lumberjack::config}",
+            target  => "${logstash-forwarder::configdir}/${logstash-forwarder::config}",
             content => template("${module_name}/file_format.erb"),
             order   => 010,
         }

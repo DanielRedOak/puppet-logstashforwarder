@@ -1,4 +1,4 @@
-# Class: lumberjack::config
+# Class: logstash-forwarder::config
 #
 # This class exists to coordinate all configuration related actions,
 # functionality and logical units in a central place.
@@ -12,7 +12,7 @@
 # === Examples
 #
 # This class may be imported by other classes to use its functionality:
-#   class { 'lumberjack::config': }
+#   class { 'logstash-forwarder::config': }
 #
 # It is not intended to be used directly by external resources like node
 # definitions or other modules.
@@ -23,16 +23,16 @@
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 # Edit: Kayla Green <mailto:kaylagreen771@gmail.com>
 # Edit: Ryan O'Keeffe
-class lumberjack::config {
+class logstash-forwarder::config {
     File {
         owner => root,
         group => root
     }
   
-    $configdir = $lumberjack::configdir
-    $config = $lumberjack::config
+    $configdir = $logstash-forwarder::configdir
+    $config = $logstash-forwarder::config
 
-    if ($lumberjack::ensure == 'present') {
+    if ($logstash-forwarder::ensure == 'present') {
         # Manage the config dir
         file { $configdir:
             ensure  => directory,
@@ -42,10 +42,10 @@ class lumberjack::config {
         }
         
         #Create network portion of config file
-        $servers = $lumberjack::servers
-        $ssl_ca = $lumberjack::ssl_ca_path
-        $ssl_certificate = $lumberjack::ssl_certificate
-        $ssl_key = $lumberjack::ssl_key
+        $servers = $logstash-forwarder::servers
+        $ssl_ca = $logstash-forwarder::ssl_ca_path
+        $ssl_certificate = $logstash-forwarder::ssl_certificate
+        $ssl_key = $logstash-forwarder::ssl_key
         
         #### Setup configuration files
         include concat::setup
@@ -68,7 +68,7 @@ class lumberjack::config {
         }
         
     } else {
-        # Remove the lumberjack directory and all of its configs. 
+        # Remove the logstash-forwarder directory and all of its configs. 
         file {$configdir : 
             ensure  => 'absent',
             purge   => true,

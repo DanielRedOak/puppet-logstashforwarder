@@ -1,16 +1,16 @@
 #!/bin/bash
 # Lumberjack daemon
 # chkconfig: 345 20 80
-# description: lumberjack daemon
-# processname: lumberjack
+# description: logstash-forwarder daemon
+# processname: logstash-forwarder
 
 DAEMON_PATH="<%= @installdir %>"
-DAEMON="bin/lumberjack.sh"
+DAEMON="bin/logstash-forwarder.sh"
 OUTPUT=""
 
 DAEMONOPTS="-config=<%= @fullconfig %> <% if @cpuprofile %> -cpuprofile=<%= @cpuprofile  %>  <% end %> -idle-flush-time=<%= @idle_flush_time %> -log-to-syslog=<%= @log_to_syslog %> -spool-size=<%= @spool_size %>"
 
-NAME="lumberjack"
+NAME="logstash-forwarder"
 DESC="Lumberjack"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME

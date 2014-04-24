@@ -1,4 +1,4 @@
-# == Class: lumberjack::service
+# == Class: logstash-forwarder::service
 #
 # This class exists to
 # 1. Provide seperation between service creation and other aspects of the module
@@ -29,16 +29,16 @@
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 # Editor Ryan O'Keeffe
 
-class lumberjack::service {
+class logstash-forwarder::service {
 
-  $fullconfig = "${lumberjack::configdir}/${lumberjack::config}" 
-  $cpuprofile = $lumberjack::cpuprofile
-  $idle_flush_time = $lumberjack::idle_flush_time
-  $log_to_syslog    = $lumberjack::log_to_syslog
-  $spool_size       = $lumberjack::spool_size
-  $run_as_service   = $lumberjack::run_as_service          
-  $ensure = $lumberjack::ensure  
-  $installdir = $lumberjack::installdir
+  $fullconfig = "${logstash-forwarder::configdir}/${logstash-forwarder::config}" 
+  $cpuprofile = $logstash-forwarder::cpuprofile
+  $idle_flush_time = $logstash-forwarder::idle_flush_time
+  $log_to_syslog    = $logstash-forwarder::log_to_syslog
+  $spool_size       = $logstash-forwarder::spool_size
+  $run_as_service   = $logstash-forwarder::run_as_service          
+  $ensure = $logstash-forwarder::ensure  
+  $installdir = $logstash-forwarder::installdir
 
   validate_bool($run_as_service)
 
@@ -50,24 +50,24 @@ class lumberjack::service {
 
   if ($run_as_service == true ) {
     # Setup init file if running as a service
-    $notify_lumberjack = $lumberjack::restart_on_change ? {
-       true  => Service["lumberjack"],
+    $notify_logstash-forwarder = $logstash-forwarder::restart_on_change ? {
+       true  => Service["logstash-forwarder"],
        false => undef,
     }
 
-    file { '/etc/init.d/lumberjack' :
+    file { '/etc/init.d/logstash-forwarder' :
       ensure  => $ensure,
       mode    => '0755',
-      content => template("${module_name}/etc/init.d/lumberjack.erb"),
-      notify  => $notify_lumberjack
+      content => template("${module_name}/etc/init.d/logstash-forwarder.erb"),
+      notify  => $notify_logstash-forwarder
     }
 
     #### Service management
 
     # set params: in operation
-    if $lumberjack::ensure == 'present' {
+    if $logstash-forwarder::ensure == 'present' {
 
-      case $lumberjack::status {
+      case $logstash-forwarder::status {
         # make sure service is currently running, start it on boot
         'enabled': {
           $service_ensure = 'running'
@@ -92,7 +92,7 @@ class lumberjack::service {
         # note: don't forget to update the parameter check in init.pp if you
         #       add a new or change an existing status.
         default: {
-          fail("\"${lumberjack::status}\" is an unknown service status value")
+          fail("\"${logstash-forwarder::status}\" is an unknown service status value")
         }
       }
 
@@ -104,17 +104,17 @@ class lumberjack::service {
       $service_ensure = 'stopped'
       $service_enable = false
     }
-    service { "lumberjack":
+    service { "logstash-forwarder":
             ensure     => $service_ensure,
             enable     => $service_enable,
-            name       => $lumberjack::params::service_name,
-            hasstatus  => $lumberjack::params::service_hasstatus,
-            hasrestart => $lumberjack::params::service_hasrestart,
-            pattern    => $lumberjack::params::service_pattern,
-            require    => File['/etc/init.d/lumberjack'],
+            name       => $logstash-forwarder::params::service_name,
+            hasstatus  => $logstash-forwarder::params::service_hasstatus,
+            hasrestart => $logstash-forwarder::params::service_hasrestart,
+            pattern    => $logstash-forwarder::params::service_pattern,
+            require    => File['/etc/init.d/logstash-forwarder'],
     }
   } 
   else {
-    $notify_lumberjack = undef
+    $notify_logstash-forwarder = undef
   }
 }

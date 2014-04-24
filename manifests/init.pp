@@ -1,6 +1,6 @@
-# == Class: lumberjack
+# == Class: logstash-forwarder
 #
-# This class is able to install or remove lumberjack on a node.
+# This class is able to install or remove logstash-forwarder on a node.
 # It manages the status of the related service.
 #
 # [Add description - What does this module do on a node?] FIXME/TODO
@@ -54,11 +54,11 @@
 #
 # [*configdir*]
 #   Path where the configuration files will be placed.
-#   Defaults to <tt>/etc/lumberjack</tt>
+#   Defaults to <tt>/etc/logstash-forwarder</tt>
 #
 # [*config*]
 #   The name of the config file to create
-#   Defaults to <tt>lumberjack.conf</tt>
+#   Defaults to <tt>logstash-forwarder.conf</tt>
 #
 # [*cpuprofile*]
 #   write cpu profile to file
@@ -86,7 +86,7 @@
 #
 #
 #
-# The default values for the parameters are set in lumberjack::params. Have
+# The default values for the parameters are set in logstash-forwarder::params. Have
 # a look at the corresponding <tt>params.pp</tt> manifest file if you need more
 # technical information about them.
 #
@@ -94,15 +94,15 @@
 # === Examples
 #
 # * Installation, make sure service is running and will be started at boot time:
-#     class { 'lumberjack': }
+#     class { 'logstash-forwarder': }
 #
 # * Removal/decommissioning:
-#     class { 'lumberjack':
+#     class { 'logstash-forwarder':
 #       ensure => 'absent',
 #     }
 #
 # * Install everything but disable service(s) afterwards
-#     class { 'lumberjack':
+#     class { 'logstash-forwarder':
 #       status => 'disabled',
 #     }
 #
@@ -113,13 +113,13 @@
 # Editor: Kayla Green <mailto:kaylagreen@gmail.com>
 # Editor: Ryan O'Keeeffe
 
-class lumberjack(
-  $config = $lumberjack::params::config,
-  $configdir = $lumberjack::params::configdir,
-  $ensure            = $lumberjack::params::ensure,
-  $autoupgrade       = $lumberjack::params::autoupgrade,
-  $status            = $lumberjack::params::status,
-  $restart_on_change = $lumberjack::params::restart_on_change,
+class logstash-forwarder(
+  $config = $logstash-forwarder::params::config,
+  $configdir = $logstash-forwarder::params::configdir,
+  $ensure            = $logstash-forwarder::params::ensure,
+  $autoupgrade       = $logstash-forwarder::params::autoupgrade,
+  $status            = $logstash-forwarder::params::status,
+  $restart_on_change = $logstash-forwarder::params::restart_on_change,
   $version           = false,
   $run_as_service     = true,
   $servers,
@@ -130,7 +130,7 @@ class lumberjack(
   $idle_flush_time  = '5s',
   $spool_size       = 1024,
   $log_to_syslog    = false,
-) inherits lumberjack::params {
+) inherits logstash-forwarder::params {
 
   #### Validate parameters
 
@@ -174,41 +174,41 @@ class lumberjack(
 
   #### Manage Actions
   if ($ensure == 'present') {
-        anchor {'lumberjack::begin':
-            before  => Class['lumberjack::config'],
-            notify  => Class['lumberjack::service'],
+        anchor {'logstash-forwarder::begin':
+            before  => Class['logstash-forwarder::config'],
+            notify  => Class['logstash-forwarder::service'],
         }
-        class {'lumberjack::config':
-            notify  => Class['lumberjack::service'],
+        class {'logstash-forwarder::config':
+            notify  => Class['logstash-forwarder::service'],
         }
-        class {'lumberjack::package':
-            require => Class['lumberjack::config'],
-            notify  => Class['lumberjack::service'],
+        class {'logstash-forwarder::package':
+            require => Class['logstash-forwarder::config'],
+            notify  => Class['logstash-forwarder::service'],
         }
-        class {'lumberjack::service':
-            require => Class['lumberjack::config'],
+        class {'logstash-forwarder::service':
+            require => Class['logstash-forwarder::config'],
         }
-        anchor { 'lumberjack::end': 
-            require => Class['lumberjack::service']
+        anchor { 'logstash-forwarder::end': 
+            require => Class['logstash-forwarder::service']
         }
   }
   else {
-        anchor { 'lumberjack::begin': 
-            before  => Class['lumberjack::service'],
-            notify  => Class['lumberjack::config'],
+        anchor { 'logstash-forwarder::begin': 
+            before  => Class['logstash-forwarder::service'],
+            notify  => Class['logstash-forwarder::config'],
         }
-        class {'lumberjack::service':
-            notify  => Class['lumberjack::package'],
+        class {'logstash-forwarder::service':
+            notify  => Class['logstash-forwarder::package'],
         }
-        class {'lumberjack::package':
-            require => Class['lumberjack::service'],
-            notify  => Class['lumberjack::config'],
+        class {'logstash-forwarder::package':
+            require => Class['logstash-forwarder::service'],
+            notify  => Class['logstash-forwarder::config'],
         }
-        class {'lumberjack::config':
-            require => Class['lumberjack::package'],
+        class {'logstash-forwarder::config':
+            require => Class['logstash-forwarder::package'],
         }
-        anchor {'lumberjack::end': 
-            require => Class['lumberjack::config'],
+        anchor {'logstash-forwarder::end': 
+            require => Class['logstash-forwarder::config'],
         }
   }
 }
