@@ -1,4 +1,4 @@
-# == Class: logstash-forwarder::service
+# == Class: logstashforwarder::service
 #
 # This class exists to
 # 1. Provide seperation between service creation and other aspects of the module
@@ -29,16 +29,16 @@
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 # Editor Ryan O'Keeffe
 
-class logstash-forwarder::service {
+class logstashforwarder::service {
 
-  $fullconfig = "${logstash-forwarder::configdir}/${logstash-forwarder::config}" 
-  $cpuprofile = $logstash-forwarder::cpuprofile
-  $idle_flush_time = $logstash-forwarder::idle_flush_time
-  $log_to_syslog    = $logstash-forwarder::log_to_syslog
-  $spool_size       = $logstash-forwarder::spool_size
-  $run_as_service   = $logstash-forwarder::run_as_service          
-  $ensure = $logstash-forwarder::ensure  
-  $installdir = $logstash-forwarder::installdir
+  $fullconfig = "${logstashforwarder::configdir}/${logstashforwarder::config}" 
+  $cpuprofile = $logstashforwarder::cpuprofile
+  $idle_flush_time = $logstashforwarder::idle_flush_time
+  $log_to_syslog    = $logstashforwarder::log_to_syslog
+  $spool_size       = $logstashforwarder::spool_size
+  $run_as_service   = $logstashforwarder::run_as_service          
+  $ensure = $logstashforwarder::ensure  
+  $installdir = $logstashforwarder::installdir
 
   validate_bool($run_as_service)
 
@@ -50,7 +50,7 @@ class logstash-forwarder::service {
 
   if ($run_as_service == true ) {
     # Setup init file if running as a service
-    $notify_logstash-forwarder = $logstash-forwarder::restart_on_change ? {
+    $notify_logstashforwarder = $logstashforwarder::restart_on_change ? {
        true  => Service["logstash-forwarder"],
        false => undef,
     }
@@ -59,15 +59,15 @@ class logstash-forwarder::service {
       ensure  => $ensure,
       mode    => '0755',
       content => template("${module_name}/etc/init.d/logstash-forwarder.erb"),
-      notify  => $notify_logstash-forwarder
+      notify  => $notify_logstashforwarder
     }
 
     #### Service management
 
     # set params: in operation
-    if $logstash-forwarder::ensure == 'present' {
+    if $logstashforwarder::ensure == 'present' {
 
-      case $logstash-forwarder::status {
+      case $logstashforwarder::status {
         # make sure service is currently running, start it on boot
         'enabled': {
           $service_ensure = 'running'
@@ -92,7 +92,7 @@ class logstash-forwarder::service {
         # note: don't forget to update the parameter check in init.pp if you
         #       add a new or change an existing status.
         default: {
-          fail("\"${logstash-forwarder::status}\" is an unknown service status value")
+          fail("\"${logstashforwarder::status}\" is an unknown service status value")
         }
       }
 
@@ -107,10 +107,10 @@ class logstash-forwarder::service {
     service { "logstash-forwarder":
             ensure     => $service_ensure,
             enable     => $service_enable,
-            name       => $logstash-forwarder::params::service_name,
-            hasstatus  => $logstash-forwarder::params::service_hasstatus,
-            hasrestart => $logstash-forwarder::params::service_hasrestart,
-            pattern    => $logstash-forwarder::params::service_pattern,
+            name       => $logstashforwarder::params::service_name,
+            hasstatus  => $logstashforwarder::params::service_hasstatus,
+            hasrestart => $logstashforwarder::params::service_hasrestart,
+            pattern    => $logstashforwarder::params::service_pattern,
             require    => File['/etc/init.d/logstash-forwarder'],
     }
   } 

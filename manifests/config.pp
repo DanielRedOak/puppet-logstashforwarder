@@ -1,4 +1,4 @@
-# Class: logstash-forwarder::config
+# Class: logstashforwarder::config
 #
 # This class exists to coordinate all configuration related actions,
 # functionality and logical units in a central place.
@@ -12,7 +12,7 @@
 # === Examples
 #
 # This class may be imported by other classes to use its functionality:
-#   class { 'logstash-forwarder::config': }
+#   class { 'logstashforwarder::config': }
 #
 # It is not intended to be used directly by external resources like node
 # definitions or other modules.
@@ -23,16 +23,16 @@
 # * Richard Pijnenburg <mailto:richard@ispavailability.com>
 # Edit: Kayla Green <mailto:kaylagreen771@gmail.com>
 # Edit: Ryan O'Keeffe
-class logstash-forwarder::config {
+class logstashforwarder::config {
     File {
         owner => root,
         group => root
     }
   
-    $configdir = $logstash-forwarder::configdir
-    $config = $logstash-forwarder::config
+    $configdir = $logstashforwarder::configdir
+    $config = $logstashforwarder::config
 
-    if ($logstash-forwarder::ensure == 'present') {
+    if ($logstashforwarder::ensure == 'present') {
         # Manage the config dir
         file { $configdir:
             ensure  => directory,
@@ -42,10 +42,10 @@ class logstash-forwarder::config {
         }
         
         #Create network portion of config file
-        $servers = $logstash-forwarder::servers
-        $ssl_ca = $logstash-forwarder::ssl_ca_path
-        $ssl_certificate = $logstash-forwarder::ssl_certificate
-        $ssl_key = $logstash-forwarder::ssl_key
+        $servers = $logstashforwarder::servers
+        $ssl_ca = $logstashforwarder::ssl_ca_path
+        $ssl_certificate = $logstashforwarder::ssl_certificate
+        $ssl_key = $logstashforwarder::ssl_key
         
         #### Setup configuration files
         include concat::setup
