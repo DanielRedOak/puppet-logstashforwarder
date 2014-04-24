@@ -2,9 +2,9 @@
 
 A puppet module for managing and configuring logstash-forwarder
 
-https://github.com/jordansissel/logstash-forwarder/
+https://github.com/elasticsearch/logstash-forwarder/
 
-This module is based upon https://github.com/electrical/puppet-logstash-forwarder and https://github.com/MixMuffins/puppet-logstash-forwarder
+This module is based upon https://github.com/electrical/puppet-lumberjack and https://github.com/MixMuffins/puppet-lumberjack
 
 This updated module is in the beta stage and although it is tested, not all scenarios may be covered.
 
@@ -12,7 +12,7 @@ This updated module is in the beta stage and although it is tested, not all scen
 
 Installation, make sure service is running and will be started at boot time:
 
-     class { 'logstash-forwarder': 
+     class { 'logstashforwarder': 
        cpuprofile       => '/path/to/write/cpu/profile/to/file',
        idle_flush_time  => '5',
        log_to_syslog    => false,
@@ -23,19 +23,19 @@ Installation, make sure service is running and will be started at boot time:
 
 Removal/decommissioning:
 
-     class { 'logstash-forwarder':
+     class { 'logstashforwarder':
        ensure => 'absent',
      }
 
 Install everything but disable service(s) afterwards:
 
-     class { 'logstash-forwarder':
+     class { 'logstashforwarder':
        status => 'disabled',
      }
 
 To configure file inputs:
 
-    logstash-forwarder::file { 'localhost-syslog':
+    logstashforwarder::file { 'localhost-syslog':
         paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
         fields   => { 'type' : 'syslog' }, 
     }
