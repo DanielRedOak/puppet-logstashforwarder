@@ -1,4 +1,4 @@
-# puppet-logstash-forwarder
+# puppet-logstashforwarder
 
 A puppet module for managing and configuring logstash-forwarder
 
