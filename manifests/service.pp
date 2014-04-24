@@ -115,6 +115,6 @@ class logstashforwarder::service {
     }
   } 
   else {
-    $notify_logstash-forwarder = undef
+    $notify_logstashforwarder = undef
   }
 }
