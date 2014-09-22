@@ -127,7 +127,7 @@ class logstashforwarder(
   $ssl_certificate         = undef,
   $ssl_key          = undef,
   $cpuprofile       = undef,
-  $idle_flush_time  = '5s',
+  $idle_flush_time  = undef,
   $spool_size       = 1024,
   $log_to_syslog    = true,
 ) inherits logstashforwarder::params {
