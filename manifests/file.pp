@@ -1,7 +1,7 @@
 define logstashforwarder::file (
     $paths,
     $fields,
-    $deadtime,
+    $deadtime = undef,
 ){
     
     File {
