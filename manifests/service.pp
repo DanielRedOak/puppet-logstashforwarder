@@ -39,7 +39,6 @@ class logstashforwarder::service {
   $run_as_service   = $logstashforwarder::run_as_service          
   $ensure = $logstashforwarder::ensure  
   $installdir = $logstashforwarder::installdir
-  $deadtime = $logstashforwarder::deadtime
 
   validate_bool($run_as_service)
 

@@ -130,7 +130,6 @@ class logstashforwarder(
   $idle_flush_time  = undef,
   $spool_size       = 1024,
   $log_to_syslog    = true,
-  $deadtime         = undef,
 ) inherits logstashforwarder::params {
 
   #### Validate parameters
