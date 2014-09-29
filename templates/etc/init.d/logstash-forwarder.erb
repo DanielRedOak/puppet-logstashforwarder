@@ -8,7 +8,7 @@ DAEMON_PATH="<%= @installdir %>"
 DAEMON="bin/logstash-forwarder.sh"
 OUTPUT=""
 
-DAEMONOPTS="-config=<%= @fullconfig %> <% if @cpuprofile %> -cpuprofile=<%= @cpuprofile  %>  <% end %><% if @idle_flush_time %> -idle-flush-time=<%= @idle_flush_time %><% end %> -log-to-syslog=<%= @log_to_syslog %> -spool-size=<%= @spool_size %>"
+DAEMONOPTS="-config=<%= @fullconfig %> <% if @cpuprofile %> -cpuprofile=<%= @cpuprofile  %>  <% end %><% if @idle_flush_time %> -idle-flush-time=<%= @idle_flush_time %><% end %> -log-to-syslog=<%= @log_to_syslog %> -spool-size=<%= @spool_size %><% if @deadtime %> -deadtime=<%= @deadtime  %>  <% end %>"
 
 NAME="logstash-forwarder"
 DESC="logstash-forwarder"
