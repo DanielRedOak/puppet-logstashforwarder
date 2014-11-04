@@ -46,7 +46,19 @@ To configure file inputs:
         paths    => ['/var/log/messages','/var/log/secure','/var/log/*.log/'],
         fields   => [ 'type', 'syslog', 'tags', 'rhel' ],
 }
- 
+
+
+## Repository management
+
+Most sites will manage repositories seperately; however, this module can manage the repository for you.
+
+     class { 'logstashforwarder':
+       manage_repo  => true
+     }
+
+Note: When using this on Debian/Ubuntu you will need to add the [Puppetlabs/apt](http://forge.puppetlabs.com/puppetlabs/apt) module to your modules.
+
+Note: If using this option, the default Debian/Ubuntu packages are often compiled for 64bit only, you will need to install via other methods for 32bit support.
  
 
 ## Parameters
